@@ -2,10 +2,10 @@
 
 This file tracks the complete build of TripCraft following the step-by-step architecture in the v6 Arcane roadmap doc. Each task has enough implementation detail to pick up and continue without follow-up prompts.
 
-**Last Updated:** 2026-03-09
+**Last Updated:** 2026-03-09 (T002 complete: Project scaffold)
 **Total Tasks:** T000–T054 (55 tasks)
 **Current Task:** T001 — Shared TypeScript Types
-**Current Sprint:** S1 (Foundation) — Not Started
+**Current Sprint:** S1 (Foundation) — In Progress
 **Next Milestone:** S1 completion — working Next.js app with Supabase auth and profile onboarding
 
 ---
@@ -17,7 +17,7 @@ Quick reference for all tasks. Use the ID (e.g., "implement T007") to reference 
 | ID   | Sprint | Priority | Type      | Title                                        | Description                                                                        |
 |------|--------|----------|-----------|----------------------------------------------|------------------------------------------------------------------------------------|
 | T001 | S1     | P0       | Setup     | Shared TypeScript Types                      | Single canonical types file — all tasks import from here                           |
-| T002 | S1     | P0       | Setup     | Project Scaffold                             | Next.js 15, Tailwind, shadcn/ui, Vercel deploy                                     |
+| ~~T002~~ | ~~S1~~ | ~~P0~~ | ~~Setup~~ | ~~Project Scaffold~~                         | ~~Next.js 15, Tailwind, shadcn/ui, Vercel deploy~~                                 |
 | T003 | S1     | P0       | Config    | Environment & Config                         | `.env.local`, Supabase client init, Anthropic client init                          |
 | T004 | S1     | P0       | Backend   | Supabase Schema                              | Tables: profiles, trips, trip_blocks, share_links, affiliate_clicks                |
 | T005 | S1     | P0       | Auth      | Supabase Auth                                | Google + magic link; session handling; protected route middleware                   |
@@ -83,7 +83,7 @@ Quick reference for all tasks. Use the ID (e.g., "implement T007") to reference 
 ### Sprint 1 — Foundation (Weeks 1–2)
 
 - [ ] **T001** — Shared TypeScript types (`src/types/index.ts`)
-- [ ] **T002** — Next.js 15 project, TypeScript, Tailwind, shadcn/ui, Vercel deploy
+- [x] **T002** — ~~Next.js 15 project, TypeScript, Tailwind, shadcn/ui, Vercel deploy~~ COMPLETE ✓
 - [ ] **T003** — Environment config, Supabase client, Anthropic client
 - [ ] **T004** — Supabase schema (profiles, trips, trip_blocks, share_links, affiliate_clicks)
 - [ ] **T005** — Supabase Auth (Google + magic link, protected route middleware)
@@ -163,6 +163,12 @@ Quick reference for all tasks. Use the ID (e.g., "implement T007") to reference 
 - [ ] **T056** — Real-time attraction alerts (Google Places API)
 - [ ] **T057** — Weather-aware scheduling (rain forecast → indoor alternatives)
 - [ ] **T058** — Conflict detection (closed-day detection)
+
+---
+
+## Verified Complete
+
+- [x] **T002** — Project Scaffold — COMPLETE (2026-03-09). Scaffolded Next.js 16.1.6 with TypeScript, Tailwind CSS v4, App Router, Turbopack, ESLint, and `src/` directory via `create-next-app`. Initialized shadcn/ui v4 and installed 9 components: button, card, input, label, select, textarea, badge, progress, toggle. Installed `posthog-js` (init deferred). Added 19 TripCraft block color tokens to `@theme inline` block in `globals.css` (block-grey, block-white, 5 yellow transport shades, block-amber, block-purple, 3 orange shades, block-blue, 3 green shades, block-teal, 2 pink shades). Configured `next.config.ts` with `turbopack.root` using `resolve(__dirname)` for absolute path. Updated `layout.tsx` metadata: title "TripCraft — AI Travel Itinerary Planner". Created placeholder `page.tsx` with shadcn Card + Button verifying component library. Created `.env.example` with 11 Phase 1 env vars (Anthropic, Supabase, affiliate IDs, PostHog). Added `"type-check": "tsc --noEmit"` script. Fixed `.gitignore` to allow `.env.example` (scaffold's `.env*` pattern was too broad). Restored README.md, TODO.md, `.claude/`, `.vscode/` after scaffold. All checks pass: `npm run build`, `npm run lint`, `npm run type-check`.
 
 ---
 
