@@ -45,6 +45,27 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* TripCraft block color tokens */
+  --color-block-grey: #E5E7EB;
+  --color-block-white: #FFFFFF;
+  --color-block-yellow-walk: #FEF9C3;
+  --color-block-yellow-transit: #FDE68A;
+  --color-block-yellow-ride: #FCD34D;
+  --color-block-yellow-drive: #FBBF24;
+  --color-block-yellow-ferry: #F59E0B;
+  --color-block-amber: #D97706;
+  --color-block-purple: #C4B5FD;
+  --color-block-orange-lt: #FED7AA;
+  --color-block-orange: #FB923C;
+  --color-block-orange-dk: #EA580C;
+  --color-block-blue: #93C5FD;
+  --color-block-green-lt: #BBF7D0;
+  --color-block-green: #4ADE80;
+  --color-block-green-dk: #16A34A;
+  --color-block-teal: #5EEAD4;
+  --color-block-pink-lt: #FBCFE8;
+  --color-block-pink: #F472B6;
 }
 
 :root {
