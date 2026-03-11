@@ -2,9 +2,9 @@
 
 This file tracks the complete build of TripCraft following the step-by-step architecture in the v6 Arcane roadmap doc. Each task has enough implementation detail to pick up and continue without follow-up prompts.
 
-**Last Updated:** 2026-03-09 (T002 complete: Project scaffold)
+**Last Updated:** 2026-03-09 (T003 complete: Environment & Config)
 **Total Tasks:** T000–T054 (55 tasks)
-**Current Task:** T001 — Shared TypeScript Types
+**Current Task:** T004 — Supabase Schema
 **Current Sprint:** S1 (Foundation) — In Progress
 **Next Milestone:** S1 completion — working Next.js app with Supabase auth and profile onboarding
 
@@ -16,9 +16,9 @@ Quick reference for all tasks. Use the ID (e.g., "implement T007") to reference 
 
 | ID   | Sprint | Priority | Type      | Title                                        | Description                                                                        |
 |------|--------|----------|-----------|----------------------------------------------|------------------------------------------------------------------------------------|
-| T001 | S1     | P0       | Setup     | Shared TypeScript Types                      | Single canonical types file — all tasks import from here                           |
+| ~~T001~~ | ~~S1~~ | ~~P0~~ | ~~Setup~~ | ~~Shared TypeScript Types~~                  | ~~Single canonical types file — all tasks import from here~~                       |
 | ~~T002~~ | ~~S1~~ | ~~P0~~ | ~~Setup~~ | ~~Project Scaffold~~                         | ~~Next.js 15, Tailwind, shadcn/ui, Vercel deploy~~                                 |
-| T003 | S1     | P0       | Config    | Environment & Config                         | `.env.local`, Supabase client init, Anthropic client init                          |
+| ~~T003~~ | ~~S1~~ | ~~P0~~ | ~~Config~~ | ~~Environment & Config~~                     | ~~`.env.local`, Supabase client init, Anthropic client init~~                      |
 | T004 | S1     | P0       | Backend   | Supabase Schema                              | Tables: profiles, trips, trip_blocks, share_links, affiliate_clicks                |
 | T005 | S1     | P0       | Auth      | Supabase Auth                                | Google + magic link; session handling; protected route middleware                   |
 | T006 | S1     | P0       | Frontend  | Profile Onboarding Flow                      | Post-signup preference wizard: activity interests, budget, pace, dietary            |
@@ -82,9 +82,9 @@ Quick reference for all tasks. Use the ID (e.g., "implement T007") to reference 
 
 ### Sprint 1 — Foundation (Weeks 1–2)
 
-- [ ] **T001** — Shared TypeScript types (`src/types/index.ts`)
+- [x] **T001** — ~~Shared TypeScript types (`src/types/index.ts`)~~ COMPLETE ✓
 - [x] **T002** — ~~Next.js 15 project, TypeScript, Tailwind, shadcn/ui, Vercel deploy~~ COMPLETE ✓
-- [ ] **T003** — Environment config, Supabase client, Anthropic client
+- [x] **T003** — ~~Environment config, Supabase client, Anthropic client~~ COMPLETE ✓
 - [ ] **T004** — Supabase schema (profiles, trips, trip_blocks, share_links, affiliate_clicks)
 - [ ] **T005** — Supabase Auth (Google + magic link, protected route middleware)
 - [ ] **T006** — Profile onboarding flow (post-signup preference wizard)
@@ -167,6 +167,10 @@ Quick reference for all tasks. Use the ID (e.g., "implement T007") to reference 
 ---
 
 ## Verified Complete
+
+- [x] **T003** — Environment & Config — COMPLETE (2026-03-09). Installed `@supabase/supabase-js@2.99.0`, `@supabase/ssr@0.9.0`, `@anthropic-ai/sdk@0.78.0`. Created `src/lib/supabase/client.ts` (browser client via `createBrowserClient` with public anon key), `src/lib/supabase/server.ts` (server client via `createServerClient` with cookie-based auth + `createServiceClient` for admin operations using `SUPABASE_SERVICE_ROLE_KEY`), `src/lib/supabase/middleware.ts` (session refresh helper for Next.js middleware — used by T005), `src/lib/anthropic.ts` (Anthropic SDK instance export), `src/lib/affiliates.ts` (URL builders for Booking.com, Viator, Klook, Skyscanner, OpenTable with affiliate ID injection). All env vars already documented in `.env.example` from T002. All checks pass: `npm run type-check`, `npm run lint`, `npm run build`.
+
+- [x] **T001** — Shared TypeScript Types — COMPLETE (2026-03-09). Created `src/types/index.ts` with all canonical type definitions: `BudgetLevel`, `TravelPace`, `GroupSize` literal types; `ActivityKey` (16 categories) and `ACTIVITY_CARDS` constant array; `UserProfile` interface (maps to Supabase `profiles` table with tier, Stripe, and generation tracking fields); `FlightInfo`, `AccommodationInput`, `DestinationInput`, `FixedEvent`, `TripPreferences`, `IntakeFormState` (intake wizard types); `BlockCategory` (12 categories), `TripBlock`, `BlockSuggestion`, `TripDay` (calendar grid types); all 7 `GeneratedSection` interfaces with supporting sub-types (`WalkthroughDay`, `AnchorCallout`, `FoodItem`, `DailyBudget`, `Phrase`, `EmergencyNumber`); `GeneratedTrip` combining all sections; `Trip` (Supabase row type); `BLOCK_COLOR` map (`BlockCategory` → Tailwind class). All checks pass: `npm run type-check`, `npm run lint`, `npm run build`.
 
 - [x] **T002** — Project Scaffold — COMPLETE (2026-03-09). Scaffolded Next.js 16.1.6 with TypeScript, Tailwind CSS v4, App Router, Turbopack, ESLint, and `src/` directory via `create-next-app`. Initialized shadcn/ui v4 and installed 9 components: button, card, input, label, select, textarea, badge, progress, toggle. Installed `posthog-js` (init deferred). Added 19 TripCraft block color tokens to `@theme inline` block in `globals.css` (block-grey, block-white, 5 yellow transport shades, block-amber, block-purple, 3 orange shades, block-blue, 3 green shades, block-teal, 2 pink shades). Configured `next.config.ts` with `turbopack.root` using `resolve(__dirname)` for absolute path. Updated `layout.tsx` metadata: title "TripCraft — AI Travel Itinerary Planner". Created placeholder `page.tsx` with shadcn Card + Button verifying component library. Created `.env.example` with 11 Phase 1 env vars (Anthropic, Supabase, affiliate IDs, PostHog). Added `"type-check": "tsc --noEmit"` script. Fixed `.gitignore` to allow `.env.example` (scaffold's `.env*` pattern was too broad). Restored README.md, TODO.md, `.claude/`, `.vscode/` after scaffold. All checks pass: `npm run build`, `npm run lint`, `npm run type-check`.
 
